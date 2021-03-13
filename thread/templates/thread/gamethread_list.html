@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% for g in gamethreads %}
+<a href="{% url 'thread_app:gamethread_detail' slug=g.slug %}">
+    <!-- Card -->
+    <div class="card card-image mt-5"
+    style="background-image: url({% static 'img/friarLogo.png'%}); background-repeat: no-repeat; background-size: contain; background-position: left;">
+        <!-- Content -->
+        <div class="text-white text-center align-items-center rgba-black-strong py-5 px-4">
+            <div>
+                <h3 class="card-title pt-2 "><strong>Game thread for {{ g }} </strong></h3>
+                <p><span class="badge brown"></span> useless thing  have been said... come put your two cents of "knowledge" in the pot....</p>
+                
+            </div>
+        </div>
+    </div>
+    <!-- Card -->
+</a>
+{% endfor %}
+{% endblock %}

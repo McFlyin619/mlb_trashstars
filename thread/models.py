@@ -22,10 +22,12 @@ class Comment(models.Model):
     comment_body = models.TextField(max_length=300, blank=True)
     thread = models.ForeignKey(GameThread, on_delete=models.CASCADE, related_name='comments')
     date = models.DateField(auto_now_add=True)
-    
+    likes = models.ManyToManyField(User, related_name='comment_like')
 
     def total_likes(self):
         return self.likes.count()
 
     def __str__(self):
         return str(self.by) + ' - ' + self.comment_body
+
+

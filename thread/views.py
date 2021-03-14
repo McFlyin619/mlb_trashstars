@@ -1,15 +1,48 @@
 from thread.models import Comment, GameThread
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView, ListView, DetailView
 import datetime
 import statsapi
 from rest_framework import viewsets
 from .serializers import CommentSerializer
 from .models import *
+from .forms import CommentForm
 
 # Create your views here.
 class HomeView(TemplateView):
     template_name = 'thread/home.html'
+
+def gamethread_details(request, slug):
+    this_thread = GameThread.objects.get(slug=slug)  
+    comments = Comment.objects.filter(thread=this_thread)
+    comment_count = Comment.objects.filter(thread=this_thread).count()
+    this_game = statsapi.schedule(date=this_thread, team=135)
+    
+    if request.method == 'POST':
+        form = CommentForm(data=request.POST)
+
+
+        if form.is_valid():
+            comment_form = form.save(commit=False)
+            comment_form.by = request.user
+            comment_form.thread = this_thread
+
+            comment_form.save()
+            form = CommentForm()
+        else:
+            print(form.errors)
+        
+    else:
+        form = CommentForm()
+       
+
+    context = {
+        'this_game':this_game,
+        'comments':comments,
+        'comment_count':comment_count,
+        'comment_form':form,   
+    }
+    return render(request,'thread/gamethread_detail.html', context=context)
 
 class GameThreadListView(ListView):
     model = GameThread

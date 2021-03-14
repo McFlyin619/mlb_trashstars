@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load like_tags %}
+{% load bootstrap4 %}
 {% block content%}
+
 <h1 class="wow fadeIn" data-wow-delay="0.2s">Game Thread</h1>
     {% for x in this_game %}
         <h3 class="wow fadeIn" data-wow-delay="0.2s">{{x.summary}}</h3>
@@ -30,8 +32,9 @@
                 </div>
                 <p class="grey-text">{{ c.comment_body }}</p>
                 <div>
-                    <a id='fire'><i class="fas fa-fire-alt mr-1"></i>FIRE</a>
-                    <a id='dumpster'><i class="fas fa-dumpster-fire mr-1"></i>DUMPSTER FIRE</a>
+                    <button type='submit' class='btn btn-link btn-rounded'><i class="fas fa-fire-alt mr-1"></i></button>
+                    <button type='submit' class='btn btn-link btn-rounded'><i class="fas fa-dumpster-fire mr-1"></i></a></button>
+                </form>
                 </div> 
             </div>
             <!-- Content column -->
@@ -51,7 +54,11 @@
         <div class="card-body pt-3 px-lg-5 pt-0">
             <form method='POST'>
             {% csrf_token %}
+<<<<<<< HEAD
                 {{ comment_form }}
+=======
+            {% bootstrap_form comment_form %}
+>>>>>>> c5dea2d6b386476082e91d0bb038a99bff0730a7
                 <input  class="btn btn-outline-dark btn-rounded btn-block z-depth-0 my-4 waves-effect" value="Send It!" type="submit">
             </form>
         </div>
@@ -60,6 +67,7 @@
 <!--Comment Form--> 
 
 {% block scripts %}
+<<<<<<< HEAD
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -94,5 +102,7 @@ $(document).ready(function(){
 })
 </script>   
 
+=======
+>>>>>>> c5dea2d6b386476082e91d0bb038a99bff0730a7
 {% endblock %}
 {% endblock%}

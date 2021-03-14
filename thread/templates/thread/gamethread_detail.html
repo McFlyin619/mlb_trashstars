@@ -49,14 +49,9 @@
 <section>
     <div class="card">
         <div class="card-body pt-3 px-lg-5 pt-0">
-            <form>
-            
-                <div class="form-group yellow-border-focus">
-                    <label for="exampleFormControlTextarea5">Its Lit</label>
-                    <textarea class="form-control" id="comment_body" rows="3"></textarea>
-                </div>
-                <input type="text" hidden id="by" class="form-control" value='{{ request.user.id }}'>
-                <input type="text" hidden  id="thread" class="form-control" value='{{ gamethread.id }}'>
+            <form method='POST'>
+            {% csrf_token %}
+                {{ comment_form }}
                 <input  class="btn btn-outline-dark btn-rounded btn-block z-depth-0 my-4 waves-effect" value="Send It!" type="submit">
             </form>
         </div>
@@ -98,6 +93,6 @@ $(document).ready(function(){
     });
 })
 </script>   
-<script type="text/javascript" src="{% static 'js/comment.js' %}"></script>
+
 {% endblock %}
 {% endblock%}

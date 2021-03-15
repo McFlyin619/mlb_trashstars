@@ -1,8 +1,9 @@
 from django.contrib import admin
-from django.urls import path, include
-from .views import HomeView, GameThreadListView, CommentViewSet, gamethread_details, like_view, dislike_view
+from django.urls import include, path
 from rest_framework import routers
 
+from .views import (CommentViewSet, GameThreadListView, HomeView, dislike_view,
+                    gamethread_details, like_view)
 
 router = routers.DefaultRouter()
 router.register('comments', CommentViewSet)

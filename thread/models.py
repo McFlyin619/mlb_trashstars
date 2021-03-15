@@ -1,7 +1,8 @@
-from django.db import models
 import datetime
-from django.template.defaultfilters import length, slugify
+
 from django.contrib.auth.models import User
+from django.db import models
+from django.template.defaultfilters import length, slugify
 from django.urls import reverse
 
 

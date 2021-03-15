@@ -1,27 +1,32 @@
-from thread.models import Comment, GameThread
-from django.shortcuts import get_object_or_404, render
-from django.views.generic import TemplateView, ListView, DetailView
 import datetime
+
 import statsapi
-from rest_framework import viewsets
-from .serializers import CommentSerializer
-from .models import *
-from .forms import CommentForm
 from django.db.models import Count
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.views.generic import DetailView, ListView, TemplateView
+from rest_framework import viewsets
+
+from thread.models import Comment, GameThread
+
+from .forms import CommentForm
+from .models import *
+from .serializers import CommentSerializer
+
+
 # Create your views here.
 class HomeView(TemplateView):
     template_name = 'thread/home.html'
 
 def like_view(request, id, pk):
-    this_comment = get_object_or_404(Comment, id=request.POST.get('comment_id'))
+    this_comment = get_object_or_404(Comment, pk=request.POST.get('comment_id'))
     if this_comment.dislikes.filter(id=request.user.id).exists():
         this_comment.dislikes.remove(request.user)
         this_comment.likes.add(request.user)
     return HttpResponseRedirect(reverse('thread_app:gamethread_detail', args=[str(id)]))
 
 def dislike_view(request, id, pk):
-    this_comment = get_object_or_404(Comment, id=request.POST.get('comment_id1'))
+    this_comment = get_object_or_404(Comment, pk=request.POST.get('comment_id1'))
     if this_comment.likes.filter(id=request.user.id).exists():
         this_comment.likes.remove(request.user)
         this_comment.dislikes.add(request.user)

@@ -21,7 +21,7 @@
             <!-- Content column -->
             <div class="col-sm-10 col-12">
                 <a>
-                    <h6 class="font-weight-bold">@{{ c.by }}</h6>
+                    <h6 class="font-weight-bold">@{{ c.by }} {{c.id}}</h6>
                 </a>
                 <div class="mt-2">
                     <ul class="list-unstyled">
@@ -29,24 +29,20 @@
                         <small><i class="far fa-clock"></i> {{ c.date|date:'m/d/y' }}</small></li>
                     </ul>
                 </div>
-                {% if c.dislikes.count > c.likes.count %}
-                <p class="grey-text animated hinge infinite">{{ c.comment_body }}</p>
-                {% else %}
                 <p class="grey-text">{{ c.comment_body }}</p>
-                {% endif %}
                 <div class='row'>
                     <div class='col-1'>
                         <form method='POST' action="{% url 'thread_app:like_comment' c.id this_thread.id %}">
                         {% csrf_token %}
                             <button data-toggle='tooltip' data-placement="top" title="This comment is fire!" name='comment_id' id='comment_id' value='{{c.id}}' type='submit' class='btn btn-link'><span class="badge badge-pill brown darken-4">{{ c.likes.count }} <i class="fas fa-fire-alt"></i></span></button>
-                            <button hidden name='comment_id2' type='submit' class='btn btn-link btn-rounded'><i class="fas fa-dumpster-fire"></i></a></button>
+                            
                         </form>
                     </div>
                     <div class='col-1'>
                         <form method='POST' action="{% url 'thread_app:dislike_comment' c.id this_thread.id %}">
                         {% csrf_token %}
                             <button data-toggle='tooltip' data-placement="top" title="This comment is a dumpter fire!" name='comment_id1' id='comment_id1' value='{{c.id}}' type='submit' class='btn btn-link'><span class="badge badge-pill brown darken-4">{{ c.dislikes.count }} <i class="fas fa-dumpster-fire"></i></span></button>
-                            <button hidden name='comment_id2' type='submit' class='btn btn-link btn-rounded'><i class="fas fa-dumpster-fire"></i></a></button>
+                            
                         </form>
                     </div>
                 </div>

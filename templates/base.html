@@ -53,7 +53,7 @@ bottom: .5em;
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar ">
         <div class="container">
-            <a class="navbar-brand" href="#">TrashStars</a>
+            <a class="navbar-brand" href="{% url 'thread_app:home' %}">TrashStars</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -65,7 +65,7 @@ bottom: .5em;
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'thread_app:gamethread_list' %}" >Game Threads</a>
                     </li>
-                    <li class="nav-item">
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link" href="#team" data-offset="30">Team</a>
                     </li>
                     <li class="nav-item">
@@ -76,7 +76,7 @@ bottom: .5em;
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact" data-offset="100">Contact</a>
-                    </li>
+                    </li> {% endcomment %}
                 </ul>
 
                 <!-- Social Icon  -->

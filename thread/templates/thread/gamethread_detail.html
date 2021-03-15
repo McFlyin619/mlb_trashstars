@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load like_tags %}
 {% load bootstrap4 %}
 {% block content%}
 
@@ -17,7 +16,7 @@
         <div class="row mb-4">
             <!-- Image column -->
             <div class="col-sm-2 col-12 mb-md-0 mb-3">
-                <img src="https://mdbootstrap.com/img/Photos/Avatars/img (9).jpg" class="avatar rounded-circle z-depth-1-half">
+                <img src="{% static 'img/SDlogo.jpg' %}" class="avatar rounded-circle z-depth-1-half">
             </div>
             <!-- Content column -->
             <div class="col-sm-10 col-12">
@@ -30,12 +29,27 @@
                         <small><i class="far fa-clock"></i> {{ c.date|date:'m/d/y' }}</small></li>
                     </ul>
                 </div>
+                {% if c.dislikes.count > c.likes.count %}
+                <p class="grey-text animated hinge infinite">{{ c.comment_body }}</p>
+                {% else %}
                 <p class="grey-text">{{ c.comment_body }}</p>
-                <div>
-                    <button type='submit' class='btn btn-link btn-rounded'><i class="fas fa-fire-alt mr-1"></i></button>
-                    <button type='submit' class='btn btn-link btn-rounded'><i class="fas fa-dumpster-fire mr-1"></i></a></button>
-                </form>
-                </div> 
+                {% endif %}
+                <div class='row'>
+                    <div class='col-1'>
+                        <form method='POST' action="{% url 'thread_app:like_comment' c.id this_thread.id %}">
+                        {% csrf_token %}
+                            <button data-toggle='tooltip' data-placement="top" title="This comment is fire!" name='comment_id' id='comment_id' value='{{c.id}}' type='submit' class='btn btn-link'><span class="badge badge-pill brown darken-4">{{ c.likes.count }} <i class="fas fa-fire-alt"></i></span></button>
+                            <button hidden name='comment_id2' type='submit' class='btn btn-link btn-rounded'><i class="fas fa-dumpster-fire"></i></a></button>
+                        </form>
+                    </div>
+                    <div class='col-1'>
+                        <form method='POST' action="{% url 'thread_app:dislike_comment' c.id this_thread.id %}">
+                        {% csrf_token %}
+                            <button data-toggle='tooltip' data-placement="top" title="This comment is a dumpter fire!" name='comment_id1' id='comment_id1' value='{{c.id}}' type='submit' class='btn btn-link'><span class="badge badge-pill brown darken-4">{{ c.dislikes.count }} <i class="fas fa-dumpster-fire"></i></span></button>
+                            <button hidden name='comment_id2' type='submit' class='btn btn-link btn-rounded'><i class="fas fa-dumpster-fire"></i></a></button>
+                        </form>
+                    </div>
+                </div>
             </div>
             <!-- Content column -->
         </div>
@@ -52,57 +66,20 @@
 <section>
     <div class="card">
         <div class="card-body pt-3 px-lg-5 pt-0">
+        {% if user.is_authenticated %}
             <form method='POST'>
             {% csrf_token %}
-<<<<<<< HEAD
-                {{ comment_form }}
-=======
             {% bootstrap_form comment_form %}
->>>>>>> c5dea2d6b386476082e91d0bb038a99bff0730a7
                 <input  class="btn btn-outline-dark btn-rounded btn-block z-depth-0 my-4 waves-effect" value="Send It!" type="submit">
             </form>
+        {% else %}
+        <h2>Please login to comment!</h2>
+        {% endif %}
         </div>
     </div>
 </section>
 <!--Comment Form--> 
 
 {% block scripts %}
-<<<<<<< HEAD
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    var csrftoken = getCookie('csrftoken');
- 
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-    $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-})
-</script>   
-
-=======
->>>>>>> c5dea2d6b386476082e91d0bb038a99bff0730a7
 {% endblock %}
 {% endblock%}

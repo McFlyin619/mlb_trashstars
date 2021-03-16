@@ -21,7 +21,7 @@
             <!-- Content column -->
             <div class="col-sm-10 col-12">
                 <a>
-                    <h6 class="font-weight-bold">@{{ c.by }} {{c.id}}</h6>
+                    <h6 class="font-weight-bold">@{{ c.by }}</h6>
                 </a>
                 <div class="mt-2">
                     <ul class="list-unstyled">
@@ -29,7 +29,11 @@
                         <small><i class="far fa-clock"></i> {{ c.date|date:'m/d/y' }}</small></li>
                     </ul>
                 </div>
-                <p class="grey-text">{{ c.comment_body }}</p>
+                {% if c.dislikes.count > c.likes.count %}
+                <p class="grey-text animated hinge delay-2s">{{ c.comment_body }}</p>
+                {% else %}
+                <p class="grey-text animated fadeInUpBig delay-2s">{{ c.comment_body }}</p>
+                {% endif %}
                 <div class='row'>
                     <div class='col-1'>
                         <form method='POST' action="{% url 'thread_app:like_comment' c.id this_thread.id %}">

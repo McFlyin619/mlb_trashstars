@@ -23,12 +23,16 @@ def like_view(request, id, pk):
     if this_comment.dislikes.filter(id=request.user.id).exists():
         this_comment.dislikes.remove(request.user)
         this_comment.likes.add(request.user)
+    else:
+        this_comment.likes.add(request.user)
     return HttpResponseRedirect(reverse('thread_app:gamethread_detail', args=[str(id)]))
 
 def dislike_view(request, id, pk):
     this_comment = get_object_or_404(Comment, pk=request.POST.get('comment_id1'))
     if this_comment.likes.filter(id=request.user.id).exists():
         this_comment.likes.remove(request.user)
+        this_comment.dislikes.add(request.user)
+    else:
         this_comment.dislikes.add(request.user)
     return HttpResponseRedirect(reverse('thread_app:gamethread_detail', args=[str(id)]))
 

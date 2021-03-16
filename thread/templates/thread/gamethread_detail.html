@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load like_tags %}
 {% load bootstrap4 %}
 {% block content%}
 
-<h1 class="wow fadeIn" data-wow-delay="0.2s">Game Thread</h1>
+<h1 class="wow fadeIn text-center" data-wow-delay="0.2s">Game Thread</h1>
     {% for x in this_game %}
-        <h3 class="wow fadeIn" data-wow-delay="0.2s">{{x.summary}}</h3>
+        <h3 class="wow fadeIn text-center" data-wow-delay="0.2s">{{x.summary}}</h3>
     {% endfor %}
 <!-- Section: Comments list -->
 <section class="mb-5 mt-5 wow fadeIn" data-wow-delay="0.3s">
@@ -17,12 +16,20 @@
         <div class="row mb-4">
             <!-- Image column -->
             <div class="col-sm-2 col-12 mb-md-0 mb-3">
-                <img src="https://mdbootstrap.com/img/Photos/Avatars/img (9).jpg" class="avatar rounded-circle z-depth-1-half">
+                <img src="{% static 'img/SDlogo.jpg' %}" class="avatar rounded-circle z-depth-1-half">
             </div>
             <!-- Content column -->
             <div class="col-sm-10 col-12">
                 <a>
-                    <h6 class="font-weight-bold">@{{ c.by }}</h6>
+                    <h4 class="font-weight-bold">
+                    {% if c.likes.count > c.dislikes.count %}
+                       <i class="red-text fas fa-fire-alt fa-2x"></i><i class="orange-text fas fa-fire-alt fa-2x"></i><i class="yellow-text fas fa-fire-alt fa-2x"></i> @{{ c.by }} <i class="yellow-text fas fa-fire-alt fa-2x"></i><i class="orange-text fas fa-fire-alt fa-2x"></i><i class="red-text fas fa-fire-alt fa-2x"></i>
+                    {% elif c.dislikes.count > c.likes.count %}
+                        @{{ c.by }} is <i class="fas fa-dumpster "></i>
+                    {% else %}
+                        @{{ c.by }}
+                    {% endif %}
+                    </h4>
                 </a>
                 <div class="mt-2">
                     <ul class="list-unstyled">
@@ -31,11 +38,26 @@
                     </ul>
                 </div>
                 <p class="grey-text">{{ c.comment_body }}</p>
-                <div>
-                    <button type='submit' class='btn btn-link btn-rounded'><i class="fas fa-fire-alt mr-1"></i></button>
-                    <button type='submit' class='btn btn-link btn-rounded'><i class="fas fa-dumpster-fire mr-1"></i></a></button>
-                </form>
-                </div> 
+                {% if user.is_authenticated %}
+                <div class='row'>
+                    <div class='col-1'>
+                        <form method='POST' action="{% url 'thread_app:like_comment' c.id this_thread.id %}">
+                        {% csrf_token %}
+                            <button data-toggle='tooltip' data-placement="top" title="This comment is fire!" name='comment_id' id='comment_id' value='{{c.id}}' type='submit' class='btn btn-link btn-lg'><span class="badge badge-pill brown darken-4">{{ c.likes.count }} <i class="fas fa-fire-alt"></i></span></button>
+                            
+                        </form>
+                    </div>
+                    <div class='col-1'>
+                        <form method='POST' action="{% url 'thread_app:dislike_comment' c.id this_thread.id %}">
+                        {% csrf_token %}
+                            <button data-toggle='tooltip' data-placement="top" title="This comment is a dumpter fire!" name='comment_id1' id='comment_id1' value='{{c.id}}' type='submit' class='btn btn-link btn-lg'><span class="badge badge-pill brown darken-4">{{ c.dislikes.count }} <i class="fas fa-dumpster"></i></span></button>
+                            
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                    <h2>Please login</h2>
+                {% endif %}
             </div>
             <!-- Content column -->
         </div>
@@ -52,11 +74,15 @@
 <section>
     <div class="card">
         <div class="card-body pt-3 px-lg-5 pt-0">
+        {% if user.is_authenticated %}
             <form method='POST'>
             {% csrf_token %}
             {% bootstrap_form comment_form %}
                 <input  class="btn btn-outline-dark btn-rounded btn-block z-depth-0 my-4 waves-effect" value="Send It!" type="submit">
             </form>
+        {% else %}
+        <h2>Please login to comment!</h2>
+        {% endif %}
         </div>
     </div>
 </section>

@@ -1,0 +1,18 @@
+{% extends 'base.html'%}
+{% load bootstrap4 %}
+{% block content %}
+
+<h2>
+{% if registered %}
+    Thanks for registering!
+{% else %}
+    <h1>Register!</h1>
+</h2>
+<form method="POST">
+    {% csrf_token %}
+    {% bootstrap_form user_form %}
+    {% bootstrap_form profile_form %}
+    <input class='btn btn-rounded btn-outline-dark' type="submit" value='Save'>
+</form>
+{% endif %}
+{% endblock %}

@@ -9,5 +9,5 @@ class CommentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)
-        self.fields['comment_body'].label = 'Is this an All-Star or Trash comment?'
+        self.fields['comment_body'].label = 'Give it your best shot.....'
 

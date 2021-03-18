@@ -24,11 +24,11 @@
                 <a>
                     <h4 class="font-weight-bold">
                         {% if c.likes.count > c.dislikes.count %}
-                            @{{ c.by }} is <i class="red-text fas fa-fire-alt "></i>
+                           ({{ user.profile.team }})  @{{ c.by }} is <i class="red-text fas fa-fire-alt "></i>
                         {% elif c.dislikes.count > c.likes.count %}
-                            @{{ c.by }} is <i class="fas fa-dumpster "></i>
+                           ({{ user.profile.team }})  @{{ c.by }} is <i class="fas fa-dumpster "></i>
                         {% else %}
-                            @{{ c.by }}
+                           ({{ user.profile.team }}) @{{ c.by }}
                         {% endif %}
                     </h4>
                 </a>

@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 <div class='row mt-3'>
     <div class='col'>
@@ -28,9 +27,9 @@
         </h3>
     </div>
 </div>
-<div class="container-fluid mt-3 mb-5">
+<div class="container-fluid mt-3 mb-5" id='info'>
     <!-- Full Page Intro -->
-    <section style="background-image: url('{% static "img/Padres_Banner.png" %}'); background-size: fit; background-position: top center;">
+    <section>
         <!-- Mask & flexbox options-->
         <div class="mask d-flex justify-content-center align-items-center">
             <!-- Content -->
@@ -40,18 +39,9 @@
                     <!--Grid column-->
                     <div class="col-md-6 col-xl-5">
                     {% if user.is_authenticated %}
-                        <h1 class='text-white'>Welcome Back {{ user }}</h1>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <h1 class='text-brown'>Welcome Back {{ user }}</h1>
                     {% else %}
+                        <h1 class='text-brown'>Login</h1>
                         <form class="text-center" method='POST'>
                         {% csrf_token %}
                             <!--Form-->
@@ -89,9 +79,8 @@
     </section>
 <!-- Full Page Intro -->
 </div>
-
-{% for t in team %}
-    <p>{{ t }}</p>
-{% endfor %}
+{% if user.is_authenticated%}
+{{ total_likes }}
+{% endif %}
 
 {% endblock %}

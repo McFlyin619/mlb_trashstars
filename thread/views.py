@@ -26,6 +26,10 @@ def home(request):
     yesterday = datetime.datetime.now().day - 1
     last_game = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(yesterday), team=135)
     next_game = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(day), team=135)
+    
+    # user = User.objects.get(id=request.user.id)
+    # total_likes = user.likes.all().count()
+        
 
 
     if request.method == 'POST':
@@ -50,6 +54,7 @@ def home(request):
         context = {
         'last_game':last_game,
         'next_game':next_game,
+        # 'total_likes':total_likes,
         
     }
         return render(request, 'thread/home.html', context=context)
@@ -58,24 +63,6 @@ def home(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('thread_app:home'))
-
-# class HomeView(TemplateView):
-#     template_name = 'thread/home.html'
-#     year = datetime.datetime.now().year
-#     month = datetime.datetime.now().month
-#     day = datetime.datetime.now().day
-#     today = datetime.datetime.now()
-#     yesterday = datetime.datetime.now().day - 1
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         year = datetime.datetime.now().year
-#         month = datetime.datetime.now().month
-#         day = datetime.datetime.now().day
-#         yesterday = datetime.datetime.now().day - 1
-#         context["last_game"] = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(yesterday), team=135)
-#         context["next_game"] = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(day), team=135)
-        
-#         return context
 
 def like_view(request, id, pk):
     this_comment = get_object_or_404(Comment, pk=request.POST.get('comment_id'))

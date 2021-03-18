@@ -19,13 +19,13 @@
     <link href="{% static 'css/addons/datatables2.min.css' %}" rel="stylesheet">
     {% block extrahead%}
     {% endblock %}
-    {% block styles %}
-    {% endblock %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
 </head>
 <body class="black-skin">
+{% block styles %}
+    {% endblock %}
 <style>
 table.dataTable thead .sorting:after,
 table.dataTable thead .sorting:before,
@@ -46,6 +46,7 @@ bottom: .5em;
       height: 100%;
     }
 </style>
+
 
 <!-- Navigation & Intro -->
 

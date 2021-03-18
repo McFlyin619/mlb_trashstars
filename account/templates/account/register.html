@@ -1,18 +1,67 @@
 {% extends 'base.html'%}
 {% load bootstrap4 %}
 {% block content %}
-
-<h2>
 {% if registered %}
-    Thanks for registering!
+    <h2>Thanks for registering!</h2>
 {% else %}
-    <h1>Register!</h1>
-</h2>
-<form method="POST">
-    {% csrf_token %}
-    {% bootstrap_form user_form %}
-    {% bootstrap_form profile_form %}
-    <input class='btn btn-rounded btn-outline-dark' type="submit" value='Save'>
-</form>
+
+<div class="container my-5 py-5 z-depth-1">
+    <!--Section: Content-->
+    <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center">
+            <!--Grid column-->
+            <div class="col-md-12">
+                <!-- Default form login -->
+                <form class="" method='POST'>
+                    {% csrf_token %}
+                    <p class="h4 mb-4">Register</p>
+                    {% bootstrap_form user_form %}
+                    {% bootstrap_form profile_form %}
+                    <!-- Sign in button -->
+                    <input class="btn btn-outline-dark btn-block my-4" type="submit" value='Register'>
+
+                    <!-- Register -->
+                    <p>Have an account?
+                        <a href="{% url 'thread_app:home' %}">Sign in</a>
+                    </p>
+                </form>
+                <!-- Default form login -->
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </section>
+    <!--Section: Content-->
+</div>
 {% endif %}
 {% endblock %}
+<div class="container my-5 py-5 z-depth-1">
+    <!--Section: Content-->
+    <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center">
+            <!--Grid column-->
+            <div class="col-md-12">
+                <!-- Default form login -->
+                <form class="text-center" method='POST'>
+                    {% csrf_token %}
+                    <p class="h4 mb-4">Register</p>
+                    {% bootstrap_form user_form %}
+                    {% bootstrap_form profile_form %}
+                    <!-- Sign in button -->
+                    <input class="btn btn-outline-dark btn-block my-4" type="submit" value='Register'>
+
+                    <!-- Register -->
+                    <p>Have an account?
+                        <a href="{% url 'thread_app:home' %}">Sign in</a>
+                    </p>
+                </form>
+                <!-- Default form login -->
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </section>
+    <!--Section: Content-->
+</div>

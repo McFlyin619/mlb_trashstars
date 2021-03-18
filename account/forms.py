@@ -13,7 +13,7 @@ class UserCreateForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args,**kwargs)
-        self.fields['username'].label = '@'
+        self.fields['username'].label = '@username'
 
 class ProfileForm(forms.ModelForm):
     class Meta:

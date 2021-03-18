@@ -8,9 +8,7 @@
                 {% if not g %}
                     No Game 
                 {% else %}
-                    {% if g.winning_team == g.away_name %}
-                        {{g.summary}} {{ g.winning_team }}({{g.away_score}}) {{ g.losing_team }}
-                    {% endif %}
+                    {{g.summary}} 
                 {% endif %}
             {% endfor %}
         </h3>
@@ -37,36 +35,41 @@
                 <!--Grid row-->
                 <div class="row d-flex align-items-center justify-content-center">
                     <!--Grid column-->
-                    <div class="col-md-6 col-xl-5">
+                    <div class="col-md-6 col-xl-6">
                     {% if user.is_authenticated %}
                         <h1 class='text-brown'>Welcome Back {{ user }}</h1>
                     {% else %}
-                        <h1 class='text-brown'>Login</h1>
-                        <form class="text-center" method='POST'>
-                        {% csrf_token %}
-                            <!--Form-->
-                            <div class="card" style="background-color: rgba(239,235,233, .85);">
-                                <div class="card-body z-depth-2 px-4">
-                                    <div class="md-form mt-3">
-                                        <i class="fa fa-at prefix brown-text"></i>
-                                        <input type="text" name='username' class="form-control">
-                                        <label for="form3">@Username</label>
+                        <div class="container my-5 py-5 z-depth-1">
+                            <!--Section: Content-->
+                            <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
+                                <!--Grid row-->
+                                <div class="row d-flex justify-content-center">
+                                    <!--Grid column-->
+                                    <div class="col-md-12">
+                                        <!-- Default form login -->
+                                        <form class="text-center" method='POST'>
+                                            {% csrf_token %}
+                                            <p class="h4 mb-4">Sign in</p>
+                                            <!-- Email -->
+                                            <input type="text" name='username' class="form-control mb-4" placeholder="@username">
+                                            <!-- Password -->
+                                            <input type="password" name="password" class="form-control mb-4" placeholder="Password">
+                                            <!-- Sign in button -->
+                                            <input class="btn btn-outline-dark btn-block my-4" type="submit" value='Sign in'>
+
+                                            <!-- Register -->
+                                            <p>Not a member?
+                                                <a href="{% url 'account_app:register' %}">Register</a>
+                                            </p>
+                                        </form>
+                                        <!-- Default form login -->
                                     </div>
-                                    <div class="md-form">
-                                        <i class="fas fa-key prefix brown-text"></i>
-                                        <input type="password" name="password" class="form-control">
-                                        <label for="form4">Your password</label>
-                                    </div>
-                                    <div class="text-center my-3">
-                                        <input class="btn btn-brown btn-block" type='submit' value='Login'>
-                                    </div>
-                                    <div class='text-center'>
-                                        <a href="{% url 'account_app:register' %}">Don't have an account? Register here!</a>
-                                    </div>
+                                    <!--Grid column-->
                                 </div>
-                            </div>
-                            <!--/.Form-->
-                        </form>
+                                <!--Grid row-->
+                            </section>
+                            <!--Section: Content-->
+                        </div>
                     {% endif %}
                     </div>
                     <!--Grid column-->

@@ -49,14 +49,14 @@
                     {% endif %}
                 {% if user.is_authenticated %}
                 <div class='row'>
-                    <div class='col-md-1'>
+                    <div class='col-auto'>
                         <form method='POST' action="{% url 'thread_app:like_comment' c.id this_thread.id %}">
                         {% csrf_token %}
                             <button data-toggle='tooltip' data-placement="top" title="This comment is fire!" name='comment_id' id='comment_id' value='{{c.id}}' type='submit' class='btn btn-link btn-lg'><span class="badge badge-pill brown darken-4">{{ c.likes.count }} <i class="fas fa-fire-alt"></i></span></button>
                             
                         </form>
                     </div>
-                    <div class='col-md-1'>
+                    <div class='col-auto'>
                         <form method='POST' action="{% url 'thread_app:dislike_comment' c.id this_thread.id %}">
                         {% csrf_token %}
                             <button data-toggle='tooltip' data-placement="top" title="This comment is trash!" name='comment_id1' id='comment_id1' value='{{c.id}}' type='submit' class='btn btn-link btn-lg'><span class="badge badge-pill brown darken-4">{{ c.dislikes.count }} <i class="fas fa-dumpster"></i></span></button>

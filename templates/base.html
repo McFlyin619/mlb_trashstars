@@ -65,10 +65,12 @@ bottom: .5em;
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'thread_app:gamethread_list' %}" >Game Threads</a>
                     </li>
-                    {% comment %} <li class="nav-item">
-                        <a class="nav-link" href="#team" data-offset="30">Team</a>
-                    </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'thread_app:user_logout' %}">
+                                    Logout
+                                </a>
+                    </li>
+                    {% comment %} <li class="nav-item">
                         <a class="nav-link" href="#timetable" data-offset="100">Timetable</a>
                     </li>
                     <li class="nav-item">
@@ -76,7 +78,7 @@ bottom: .5em;
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#contact" data-offset="100">Contact</a>
-                    </li> {% endcomment %}
+                    </li>  {% endcomment %}
                 </ul>
 
                 <!-- Social Icon  -->

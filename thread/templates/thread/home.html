@@ -9,7 +9,9 @@
                 {% if not g %}
                     No Game 
                 {% else %}
-                    {{ g.summary }}
+                    {% if g.winning_team == g.away_name %}
+                        {{g.summary}} {{ g.winning_team }}({{g.away_score}}) {{ g.losing_team }}
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         </h3>
@@ -37,25 +39,45 @@
                 <div class="row d-flex align-items-center justify-content-center">
                     <!--Grid column-->
                     <div class="col-md-6 col-xl-5">
-                        <!--Form-->
-                        <div class="card" style="background-color: rgba(239,235,233, .85);">
-                            <div class="card-body z-depth-2 px-4">
-                                <div class="md-form mt-3">
-                                    <i class="fa fa-at prefix brown-text"></i>
-                                    <input type="text" id="form3" class="form-control">
-                                    <label for="form3">Username</label>
-                                </div>
-                                <div class="md-form">
-                                    <i class="fas fa-key prefix brown-text"></i>
-                                    <input type="text" id="form4" class="form-control">
-                                    <label for="form4">Your password</label>
-                                </div>
-                                <div class="text-center my-3">
-                                    <button class="btn btn-brown btn-block">Sign Up</button>
+                    {% if user.is_authenticated %}
+                        <h1 class='text-white'>Welcome Back {{ user }}</h1>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    {% else %}
+                        <form class="text-center" method='POST'>
+                        {% csrf_token %}
+                            <!--Form-->
+                            <div class="card" style="background-color: rgba(239,235,233, .85);">
+                                <div class="card-body z-depth-2 px-4">
+                                    <div class="md-form mt-3">
+                                        <i class="fa fa-at prefix brown-text"></i>
+                                        <input type="text" name='username' class="form-control">
+                                        <label for="form3">@Username</label>
+                                    </div>
+                                    <div class="md-form">
+                                        <i class="fas fa-key prefix brown-text"></i>
+                                        <input type="password" name="password" class="form-control">
+                                        <label for="form4">Your password</label>
+                                    </div>
+                                    <div class="text-center my-3">
+                                        <input class="btn btn-brown btn-block" type='submit' value='Login'>
+                                    </div>
+                                    <div class='text-center'>
+                                        <a href="{% url 'account_app:register' %}">Don't have an account? Register here!</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!--/.Form-->
+                            <!--/.Form-->
+                        </form>
+                    {% endif %}
                     </div>
                     <!--Grid column-->
                 </div>
@@ -67,5 +89,9 @@
     </section>
 <!-- Full Page Intro -->
 </div>
+
+{% for t in team %}
+    <p>{{ t }}</p>
+{% endfor %}
 
 {% endblock %}

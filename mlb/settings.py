@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'tastypie',
     'rest_framework',
-    'api',
     'thread',
+    'account',
 ]
 
 MIDDLEWARE = [

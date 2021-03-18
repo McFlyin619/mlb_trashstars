@@ -27,7 +27,7 @@ SECRET_KEY = 'a!2p=w!a9woo%^9fwfpx02izw!)%coi$zb7((wg&t+vg2_fyh8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['trashstars.herokuapp.com','127.0.0.1']
 
 
 # Application definition

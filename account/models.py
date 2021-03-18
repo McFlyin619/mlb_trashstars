@@ -42,4 +42,4 @@ class Profile(models.Model):
     team = models.CharField(max_length=254, choices=TEAMS, default='SD')
 
     def __str__(self):
-        return self.web_user
+        return str(self.web_user)

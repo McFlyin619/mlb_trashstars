@@ -1,1 +1,1 @@
-web: gunicorn service_ticket_app.wsgi --log-file -
+web: gunicorn mlb.wsgi --log-file -

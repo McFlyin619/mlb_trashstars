@@ -64,13 +64,19 @@ bottom: .5em;
                         <a class="nav-link" href="{% url 'thread_app:home' %}">Home <span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'thread_app:gamethread_list' %}" >Game Threads</a>
+                        {% for g in game_thread %}
+                        <a class="nav-link" href="{% url 'thread_app:gamethread_detail' g.pk %}" >Game Thread</a>
+                        {% endfor %}
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'thread_app:user_logout' %}">
-                                    Logout
-                                </a>
+                            Logout
+                        </a>
                     </li>
+                    {% else %}
+                    {% endif %}
+                    
                     {% comment %} <li class="nav-item">
                         <a class="nav-link" href="#timetable" data-offset="100">Timetable</a>
                     </li>

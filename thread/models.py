@@ -33,6 +33,6 @@ class Comment(models.Model):
         return self.likes.count()
 
     def __str__(self):
-        return str(self.by) + ' - ' + self.comment_body
+        return '(' + str(self.by.profile.team) + ')' + str(self.by) + ' - ' + self.comment_body
 
 

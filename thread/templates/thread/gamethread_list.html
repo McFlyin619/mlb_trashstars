@@ -30,18 +30,22 @@
                             <div class="text-white text-center py-lg-5 py-0 my-0">
                                 <div>
                                     <h3 class="card-title text-center font-weight-bold pt-2">
-                                    {% if forloop.first %}
                                         Latest
                                         <span class='badge brown darken-4'>
                                             <strong>Game thread for {{ g.date|date:'m/d/y' }}</strong>
                                         </span>
-                                    {% else %}
-                                        <span class='badge brown darken-4'>
-                                            <strong>Game thread for {{ g.date|date:'m/d/y' }}</strong>
-                                        </span>
-                                    {% endif %}
                                     </h3>
-                                    <p class="mx-5 clearfix d-none d-md-block"></p>
+                                    <p class="mx-5 clearfix d-none d-md-block">
+                                        <span class='badge'>
+                                        {% for g in games %}
+                                            {% if not g.winning_team %}
+                                                {{ g.summary }}
+                                            {% else %}
+                                                The {{ g.winning_team }} beat the {{ g.losing_team }}
+                                            {% endif %}
+                                        {% endfor %}
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>

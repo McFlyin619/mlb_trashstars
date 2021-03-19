@@ -2,12 +2,23 @@
 {% load static %}
 {% load bootstrap4 %}
 {% block content%}
-{% for x in this_game %}
-    {% if x.winning_team == 'San Diego Padres' %}
-        <h1 class="wow fadeIn text-center" data-wow-delay="0.2s">Padres Win Bitch!</h1>
-    {% endif %}
-        <h3 class="wow fadeIn text-center mt-5" data-wow-delay="0.2s"><strong>{{x.summary}}</strong></h3>
-{% endfor %}
+<div class="card text-center mt-3">
+    <div class="card-body ">
+        <h2 class="card-title">
+        {% for x in this_game %}
+        {% if x.winning_team == 'San Diego Padres' %}
+            Padres Win Bitch!
+        {% endif %}
+        {{x.summary}}
+        {% endfor %}
+        </h2>
+    </div>
+</div>
+
+<h3 class='mt-3 text-center'> <i class="red-text fas fa-fire-alt "></i> Best comment <i class="red-text fas fa-fire-alt "></i>
+<div class="alert alert-warning text-center" role="alert">
+  {{ most_likes }}
+</div>
 <!-- Section: Comments list -->
 <section class="mb-5 mt-5 wow fadeIn" data-wow-delay="0.3s">
     <!-- Main wrapper -->

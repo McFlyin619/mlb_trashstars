@@ -27,7 +27,7 @@ def home(request):
     yesterday = datetime.datetime.now().day - 1
     last_game = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(yesterday), team=135)
     next_game = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(day), team=135)
-    
+    game_thread = GameThread.objects.all()
     # user = User.objects.get(id=request.user.id)
     # total_likes = user.likes.all().count()
         
@@ -55,7 +55,7 @@ def home(request):
         context = {
         'last_game':last_game,
         'next_game':next_game,
-        # 'total_likes':total_likes,
+        'game_thread':game_thread,
         
     }
         return render(request, 'thread/home.html', context=context)
@@ -89,6 +89,8 @@ def gamethread_details(request, pk):
     comments = Comment.objects.filter(thread=this_thread)
     comment_count = Comment.objects.filter(thread=this_thread).count()
     this_game = statsapi.schedule(date=this_thread, team=135)
+    most_likes = comments.order_by('likes').last()
+        
     
     if request.method == 'POST':
         form = CommentForm(data=request.POST)
@@ -116,6 +118,7 @@ def gamethread_details(request, pk):
         'comment_count':comment_count,
         'comment_form':form,
         'this_thread':this_thread,
+        'most_likes':most_likes,
         
     }
     return render(request,'thread/gamethread_detail.html', context=context)
@@ -139,8 +142,10 @@ class GameThreadListView(ListView):
         game_thread, created = GameThread.objects.get_or_create(date=today)
         game_thread.value = self.request.POST.get(today)
         game_thread.save()
-        context['next_game'] = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(day), team=135)
-        context['this_game'] = statsapi.schedule(date=this_thread, team=135)
+        game_threads = GameThread.objects.exclude(date=today)
+        game_threads.delete()
+        
+        context['game'] = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(day), team=135)
         return context
     
 class CommentViewSet(viewsets.ModelViewSet):

@@ -6,10 +6,10 @@
     <div class="card-body ">
         <h2 class="card-title">
         {% for x in this_game %}
-        {% if x.winning_team == 'San Diego Padres' %}
-            Padres Win Bitch!
-        {% endif %}
-        {{x.summary}}
+            {% if x.winning_team == 'San Diego Padres' %}
+                Padres Win Bitch!
+            {% endif %}
+                {{x.summary}}
         {% endfor %}
         </h2>
     </div>

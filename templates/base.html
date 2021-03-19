@@ -64,9 +64,7 @@ bottom: .5em;
                         <a class="nav-link" href="{% url 'thread_app:home' %}">Home <span class="sr-only"></span></a>
                     </li>
                     <li class="nav-item">
-                        {% for g in game_thread %}
-                        <a class="nav-link" href="{% url 'thread_app:gamethread_detail' g.pk %}" >Game Thread</a>
-                        {% endfor %}
+                        <a class="nav-link" href="{% url 'thread_app:gamethread_list' %}" >Game Thread</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">

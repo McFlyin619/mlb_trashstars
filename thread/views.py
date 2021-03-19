@@ -126,26 +126,24 @@ def gamethread_details(request, pk):
 class GameThreadListView(ListView):
     model = GameThread
     context_object_name = 'gamethreads'
-
-
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         year = datetime.datetime.now().year
         month = datetime.datetime.now().month
         day = datetime.datetime.now().day
         today = datetime.datetime.now()
-        this_thread = get_object_or_404(GameThread, pk=self.kwargs['pk'])  
-        
         
         
 
         game_thread, created = GameThread.objects.get_or_create(date=today)
         game_thread.value = self.request.POST.get(today)
         game_thread.save()
-        game_threads = GameThread.objects.exclude(date=today)
-        game_threads.delete()
+        # game_threads = GameThread.objects.exclude(date=today)
+        # game_threads.delete()
         
         context['game'] = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(day), team=135)
+        
         return context
     
 class CommentViewSet(viewsets.ModelViewSet):

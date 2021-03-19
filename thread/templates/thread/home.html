@@ -14,12 +14,12 @@
         </h3>
     </div>
     <div class='col'>
-        <h3 class='ml-md-5 font-weight-bold animated fadeInLeftBig slower '>
-            {% for g in next_game %}
-                {% if not g %}
+        <h3 class='ml-md-5 font-weight-bold animated fadeInLeftBig slower'>
+            {% for n in next_game %}
+                {% if not n %}
                     No Game 
                 {% else %}
-                    {{ g.summary }}
+                    {{ n.summary }}
                 {% endif %}
             {% endfor %}
         </h3>

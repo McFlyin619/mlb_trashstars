@@ -1,4 +1,5 @@
 import datetime
+from requests.api import get
 
 import statsapi
 from django.db.models import Count
@@ -130,12 +131,16 @@ class GameThreadListView(ListView):
         month = datetime.datetime.now().month
         day = datetime.datetime.now().day
         today = datetime.datetime.now()
+        this_thread = get_object_or_404(GameThread, pk=self.kwargs['pk'])  
+        
+        
         
 
         game_thread, created = GameThread.objects.get_or_create(date=today)
         game_thread.value = self.request.POST.get(today)
         game_thread.save()
         context['next_game'] = statsapi.schedule(date=str(year) + "-" + str(month) +"-" + str(day), team=135)
+        context['this_game'] = statsapi.schedule(date=this_thread, team=135)
         return context
     
 class CommentViewSet(viewsets.ModelViewSet):
